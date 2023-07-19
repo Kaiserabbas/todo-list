@@ -1,9 +1,19 @@
-/* eslint-disable no-unused-vars */
 import _ from 'lodash';
 import './index.css';
-import populateTodoList from './print.js';
-
+import {
+  // headSection,
+  saveBooks,
+  addBooks,
+  removeBook,
+  showBooks,
+  bookForm,
+} from './print.js';
 document.addEventListener('DOMContentLoaded', () => {
-  populateTodoList();
+  // headSection();
+  saveBooks;
+  addBooks();
+  removeBook();
+  showBooks();
+  bookForm.addEventListener('submit', addBooks);
+  bookForm.addEventListener('submit', showBooks);
 });
-/* eslint-disable no-unused-vars */

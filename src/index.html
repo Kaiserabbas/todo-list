@@ -2,25 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css"
-      integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm"
-      crossorigin="anonymous"
     />
     <title>Wbpack Exercise</title>
   </head>
   <body>
     <!-- <div id="todo-list"></div> -->
-    <div id="todo-list"></div>
-    <script src="../dist/index.bundle.js"></script>
-    <script src="../dist/print.bundle.js"></script>
-    <script src="../dist/runtime.bundle.js"></script>
-    <script src="../dist/style.bundle.js  "></script>
+    <div id="list1" class="list">
+      <div class="form list" id="list2">
+        <h1>Add a new task</h1>
+        <form id="form">
+          <label for="title"></label>
+          <input type="text" id="title" placeholder="Title" required />
+          <br /><br />
+          <button type="submit" id="form-button">Add</button>
+        </form>
+      </div>
+      <div id="added-books" class="added-books"></div>
+    </div>
+
+    <div>
+      <h1>hello there <span class="glyphicon">&#xe020;</span></h1>
+    </div>
   </body>
 </html>
