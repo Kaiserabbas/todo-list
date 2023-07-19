@@ -7,7 +7,9 @@
   },
   "extends": ["development"],
   "formatters": ["stylish"],
-  "hints": [
+  "hints": [{
+    "meta-viewport": "error"
+  },
     "button-type",
     "disown-opener",
     "html-checker",
