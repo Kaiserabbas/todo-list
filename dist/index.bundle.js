@@ -8,12 +8,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _print_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* eslint-disable no-unused-vars */
+
 
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  (0,_print_js__WEBPACK_IMPORTED_MODULE_2__.populateTodoList)();
+  (0,_print_js__WEBPACK_IMPORTED_MODULE_2__["default"])();
 });
+/* eslint-disable no-unused-vars */
 
 
 /***/ }),
@@ -17543,12 +17546,69 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `body {
-    background-color: silver;
+  list-style: none;
 }
 
 .completed {
-    text-decoration: line-through;
-}`, ""]);
+  text-decoration: line-through;
+}
+
+.books-div p {
+  margin: 0 0 0 20px;
+}
+
+.close {
+  display: none;
+  font-size: 35px;
+  color: rgb(8, 7, 7);
+  margin: 0 200px 0 0;
+  cursor: pointer;
+}
+
+.sub-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 30px 5px 30px;
+}
+
+.header input {
+  font-style: italic;
+  border: none;
+  margin: 0 30px 0 30px;
+  width: 90vw;
+}
+
+.sub-todo-list {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.handle {
+  position: absolute;
+  right: 10px;
+  font-size: 25px;
+  color: rgb(138, 136, 136);
+  margin: 0 20px 0 0;
+  cursor: pointer;
+}
+
+.sub-todo-list input {
+  margin: 0 10px 0 30px;
+}
+
+.button-clear {
+  border: none;
+  text-align: center;
+  width: 100vw;
+  height: 60px;
+}
+
+.button-clear:hover {
+  background-color: silver;
+}
+`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -17662,36 +17722,9 @@ module.exports = function (cssWithMappingToString) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   populateTodoList: () => (/* binding */ populateTodoList)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-// export const printMe = () => {
-//   let x = 10;
-//   let y = 50;
-//   console.log(x * y);
-//   console.log('I get called from print.js!');
-// };
-// export const date = () => {
-//   const dateToday = new Date();
-//   const date = document.getElementById('date');
-//   date.innerHTML = `Date: ${dateToday}`;
-// };
-
 const tasks = [
-  {
-    description: 'Buy groceries',
-    completed: false,
-    index: 0,
-  },
-  {
-    description: 'Finish homework',
-    completed: true,
-    index: 1,
-  },
-  {
-    description: 'Call a friend',
-    completed: false,
-    index: 2,
-  },
   {
     description: 'Buy groceries',
     completed: false,
@@ -17711,18 +17744,48 @@ const tasks = [
 ];
 
 const populateTodoList = () => {
+  const header = document.createElement('div');
+  header.setAttribute('class', 'header');
+
+  const parent = document.body;
+  parent.insertBefore(header, parent.children[0]);
+
+  const subHeader = document.createElement('div');
+  subHeader.setAttribute('class', 'sub-header');
+  header.appendChild(subHeader);
+
+  const headerText = document.createElement('p');
+  headerText.innerHTML = "Today's To Do";
+  subHeader.appendChild(headerText);
+
+  const refresh = document.createElement('i');
+  refresh.setAttribute('class', 'glyphicon');
+  refresh.innerHTML = '&#xe031;';
+  subHeader.appendChild(refresh);
+
+  const hr = document.createElement('hr');
+  header.appendChild(hr);
+
+  const headerInput = document.createElement('input');
+  headerInput.setAttribute('placeholder', 'Add to your list');
+  header.appendChild(headerInput);
+  const hr1 = document.createElement('hr');
+  header.appendChild(hr1);
+
   const todoList = document.getElementById('todo-list');
-
-  // Clear existing list items
-  todoList.innerHTML = '';
-
-  tasks.sort((a, b) => a.index - b.index); // Sort tasks by index
-
   tasks.forEach((task) => {
-    const listItem = document.createElement('li');
+    const subTodoList = document.createElement('div');
+    subTodoList.setAttribute('class', 'sub-todo-list');
+    todoList.appendChild(subTodoList);
+
+    const listItem = document.createElement('span');
+
+    const inputCheckBox = document.createElement('input');
+    inputCheckBox.setAttribute('type', 'checkbox');
+    subTodoList.appendChild(inputCheckBox);
 
     // Set task description
-    listItem.textContent = task.description;
+    listItem.innerText = task.description;
 
     // Set completion status
     if (task.completed) {
@@ -17733,9 +17796,23 @@ const populateTodoList = () => {
     listItem.dataset.index = task.index;
 
     // Append the list item to the todo list
-    todoList.appendChild(listItem);
+    subTodoList.appendChild(listItem);
+
+    const handle = document.createElement('div');
+    handle.setAttribute('class', 'handle');
+    handle.innerHTML = '&#8942;';
+    subTodoList.appendChild(handle);
+
+    const hr2 = document.createElement('hr');
+    todoList.appendChild(hr2);
   });
+  const buttonClear = document.createElement('button');
+  buttonClear.setAttribute('class', 'button-clear');
+  buttonClear.innerHTML = 'Clear all completed';
+  parent.insertBefore(buttonClear, parent.children[3]);
 };
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (populateTodoList);
 
 
 /***/ })

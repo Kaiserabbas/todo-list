@@ -1,31 +1,4 @@
-// export const printMe = () => {
-//   let x = 10;
-//   let y = 50;
-//   console.log(x * y);
-//   console.log('I get called from print.js!');
-// };
-// export const date = () => {
-//   const dateToday = new Date();
-//   const date = document.getElementById('date');
-//   date.innerHTML = `Date: ${dateToday}`;
-// };
-
 const tasks = [
-  {
-    description: 'Buy groceries',
-    completed: false,
-    index: 0,
-  },
-  {
-    description: 'Finish homework',
-    completed: true,
-    index: 1,
-  },
-  {
-    description: 'Call a friend',
-    completed: false,
-    index: 2,
-  },
   {
     description: 'Buy groceries',
     completed: false,
@@ -44,19 +17,49 @@ const tasks = [
   // Add more tasks as needed
 ];
 
-export const populateTodoList = () => {
+const populateTodoList = () => {
+  const header = document.createElement('div');
+  header.setAttribute('class', 'header');
+
+  const parent = document.body;
+  parent.insertBefore(header, parent.children[0]);
+
+  const subHeader = document.createElement('div');
+  subHeader.setAttribute('class', 'sub-header');
+  header.appendChild(subHeader);
+
+  const headerText = document.createElement('p');
+  headerText.innerHTML = "Today's To Do";
+  subHeader.appendChild(headerText);
+
+  const refresh = document.createElement('i');
+  refresh.setAttribute('class', 'glyphicon');
+  refresh.innerHTML = '&#xe031;';
+  subHeader.appendChild(refresh);
+
+  const hr = document.createElement('hr');
+  header.appendChild(hr);
+
+  const headerInput = document.createElement('input');
+  headerInput.setAttribute('placeholder', 'Add to your list');
+  header.appendChild(headerInput);
+  const hr1 = document.createElement('hr');
+  header.appendChild(hr1);
+
   const todoList = document.getElementById('todo-list');
-
-  // Clear existing list items
-  todoList.innerHTML = '';
-
-  tasks.sort((a, b) => a.index - b.index); // Sort tasks by index
-
   tasks.forEach((task) => {
-    const listItem = document.createElement('li');
+    const subTodoList = document.createElement('div');
+    subTodoList.setAttribute('class', 'sub-todo-list');
+    todoList.appendChild(subTodoList);
+
+    const listItem = document.createElement('span');
+
+    const inputCheckBox = document.createElement('input');
+    inputCheckBox.setAttribute('type', 'checkbox');
+    subTodoList.appendChild(inputCheckBox);
 
     // Set task description
-    listItem.textContent = task.description;
+    listItem.innerText = task.description;
 
     // Set completion status
     if (task.completed) {
@@ -67,6 +70,20 @@ export const populateTodoList = () => {
     listItem.dataset.index = task.index;
 
     // Append the list item to the todo list
-    todoList.appendChild(listItem);
+    subTodoList.appendChild(listItem);
+
+    const handle = document.createElement('div');
+    handle.setAttribute('class', 'handle');
+    handle.innerHTML = '&#8942;';
+    subTodoList.appendChild(handle);
+
+    const hr2 = document.createElement('hr');
+    todoList.appendChild(hr2);
   });
+  const buttonClear = document.createElement('button');
+  buttonClear.setAttribute('class', 'button-clear');
+  buttonClear.innerHTML = 'Clear all completed';
+  parent.insertBefore(buttonClear, parent.children[3]);
 };
+
+export default populateTodoList;
