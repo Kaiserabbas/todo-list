@@ -334,10 +334,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.completed {
   cursor: pointer;
 }
 
-.glyphicon {
-  color: rgb(8, 7, 7);
-}
-
 .handle {
   font-size: 25px;
   color: rgb(138, 136, 136);

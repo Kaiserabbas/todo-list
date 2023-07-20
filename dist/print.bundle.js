@@ -120,7 +120,6 @@ const showTasks = () => {
 
     const inputCheckBox = document.createElement('input');
     inputCheckBox.setAttribute('type', 'checkbox');
-
     inputCheckBox.addEventListener('change', () => {
       if (inputCheckBox.checked) {
         listItemTitle.style.textDecoration = 'line-through';
@@ -137,17 +136,24 @@ const showTasks = () => {
 
     // Create a button to remove the book
     const removeButton = document.createElement('span');
-    removeButton.setAttribute('class', 'close glyphicon');
+    removeButton.setAttribute('class', 'close');
     removeButton.getAttribute('id', 'remove-icon');
-    removeButton.innerHTML = '&#xe020;';
-    for (let i = 0; i < tasks.length; i++) {
-      // Create a button to remove the book
-      removeButton.addEventListener('click', () => {
-        removeTask(i);
-        showTasks(); // Update the book list after removal
-      });
-    }
+    removeButton.innerHTML = '🗑';
+    removeButton.addEventListener('click', (event) => {
+      const removeButtonParent = event.target.parentNode;
+      taskList.removeChild(removeButtonParent);
+      taskList.removeChild(hr3);
+    });
+
     tasksDiv.appendChild(removeButton);
+    inputCheckBox.addEventListener('change', (event) => {
+      handle.style.display = 'none';
+      const listItem = event.target.parentNode;
+      const removeButton = listItem.querySelector('.close');
+      removeButton.style.margin = '0 15px 0 0';
+      handle.style.display = event.target.checked ? 'none' : 'inline';
+      removeButton.style.display = event.target.checked ? 'inline' : 'none';
+    });
 
     // Create the handle for dragging
     const handle = document.createElement('span');
@@ -159,24 +165,11 @@ const showTasks = () => {
     listItemTitle.addEventListener('click', () => {
       listItemTitle.contentEditable = true;
       listItemTitle.focus();
-
-      // Show the remove button only during editing
-      removeButton.style.display = 'inline';
-      removeButton.style.margin = '0 15px 0 0';
-      // Hide the handle during editing
-      handle.style.display = 'none';
     });
 
     // Add event listener to handle changes in the edited list item
     listItemTitle.addEventListener('blur', () => {
       listItemTitle.contentEditable = false;
-
-      // Hide the remove button after editing is complete
-      removeButton.style.display = 'none';
-
-      // Show the handle again after editing is complete
-      handle.style.display = 'inline';
-
       // Update the book title in the array
       tasks[i].description = listItemTitle.innerHTML;
       saveTasks(); // Save the updated book list to local storage
@@ -196,8 +189,10 @@ const showTasks = () => {
     const completedCheckboxes = Array.from(
       document.querySelectorAll('input[type="checkbox"]:checked')
     );
+
     completedCheckboxes.forEach((checkbox) => {
       const index = parseInt(checkbox.dataset.index);
+
       removeTask(index);
       showTasks(); // Update the book list after removal
     });
