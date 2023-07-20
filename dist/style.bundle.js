@@ -311,30 +311,32 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `body {
-    background-color: silver;
-}
-
-.completed {
+___CSS_LOADER_EXPORT___.push([module.id, `.completed {
     text-decoration: line-through;
 }
 
-.books-div{
+#input-form {
+  border: none;
+  width: 100vw;
+  height: 50px;
+}
+
+
+.tasks-div{
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.books-div p {
-margin: 0 0 0 20px;
+  padding: 0 20px 0 20px;
 }
 
 .close {
+  font-size: 20px;
   display: none;
-  font-size: 35px;
-  color: rgb(8, 7, 7);
-  margin: 0 200px 0 0; 
   cursor: pointer;
+}
+
+.glyphicon{
+  color: rgb(8, 7, 7);
 }
 
 .handle {
@@ -342,6 +344,16 @@ margin: 0 0 0 20px;
   color: rgb(138, 136, 136);
   margin: 0 20px 0 0;
   cursor: pointer;
+}
+
+.form-input-button{
+  display: none;
+}
+.clear-button {
+  margin: 0;
+  border: none;
+  width: 100vw;
+  height: 60px;
 }`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);

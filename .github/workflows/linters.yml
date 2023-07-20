@@ -8,7 +8,6 @@ env:
 jobs:
   lighthouse:
     name: 'Run Lighthouse tests'
-    continue-on-error: true
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3

@@ -1,27 +1,29 @@
-body {
-    background-color: silver;
-}
-
 .completed {
     text-decoration: line-through;
 }
 
-.books-div{
+#input-form {
+  border: none;
+  width: 100vw;
+  height: 50px;
+}
+
+
+.tasks-div{
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.books-div p {
-margin: 0 0 0 20px;
+  padding: 0 20px 0 20px;
 }
 
 .close {
+  font-size: 20px;
   display: none;
-  font-size: 35px;
-  color: rgb(8, 7, 7);
-  margin: 0 200px 0 0; 
   cursor: pointer;
+}
+
+.glyphicon{
+  color: rgb(8, 7, 7);
 }
 
 .handle {
@@ -29,4 +31,14 @@ margin: 0 0 0 20px;
   color: rgb(138, 136, 136);
   margin: 0 20px 0 0;
   cursor: pointer;
+}
+
+.form-input-button{
+  display: none;
+}
+.clear-button {
+  margin: 0;
+  border: none;
+  width: 100vw;
+  height: 60px;
 }

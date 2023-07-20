@@ -12,13 +12,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  // headSection();
-  _print_js__WEBPACK_IMPORTED_MODULE_2__.saveBooks;
-  (0,_print_js__WEBPACK_IMPORTED_MODULE_2__.addBooks)();
-  (0,_print_js__WEBPACK_IMPORTED_MODULE_2__.removeBook)();
-  (0,_print_js__WEBPACK_IMPORTED_MODULE_2__.showBooks)();
-  _print_js__WEBPACK_IMPORTED_MODULE_2__.bookForm.addEventListener('submit', _print_js__WEBPACK_IMPORTED_MODULE_2__.addBooks);
-  _print_js__WEBPACK_IMPORTED_MODULE_2__.bookForm.addEventListener('submit', _print_js__WEBPACK_IMPORTED_MODULE_2__.showBooks);
+  (0,_print_js__WEBPACK_IMPORTED_MODULE_2__.saveTasks)();
+  (0,_print_js__WEBPACK_IMPORTED_MODULE_2__.showTasks)();
+  _print_js__WEBPACK_IMPORTED_MODULE_2__.tasksForm.addEventListener('submit', _print_js__WEBPACK_IMPORTED_MODULE_2__.addTasks);
+  _print_js__WEBPACK_IMPORTED_MODULE_2__.tasksForm.addEventListener('submit', _print_js__WEBPACK_IMPORTED_MODULE_2__.showTasks);
 });
 
 
@@ -17548,30 +17545,32 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `body {
-    background-color: silver;
-}
-
-.completed {
+___CSS_LOADER_EXPORT___.push([module.id, `.completed {
     text-decoration: line-through;
 }
 
-.books-div{
+#input-form {
+  border: none;
+  width: 100vw;
+  height: 50px;
+}
+
+
+.tasks-div{
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.books-div p {
-margin: 0 0 0 20px;
+  padding: 0 20px 0 20px;
 }
 
 .close {
+  font-size: 20px;
   display: none;
-  font-size: 35px;
-  color: rgb(8, 7, 7);
-  margin: 0 200px 0 0; 
   cursor: pointer;
+}
+
+.glyphicon{
+  color: rgb(8, 7, 7);
 }
 
 .handle {
@@ -17579,6 +17578,16 @@ margin: 0 0 0 20px;
   color: rgb(138, 136, 136);
   margin: 0 20px 0 0;
   cursor: pointer;
+}
+
+.form-input-button{
+  display: none;
+}
+.clear-button {
+  margin: 0;
+  border: none;
+  width: 100vw;
+  height: 60px;
 }`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -17693,94 +17702,115 @@ module.exports = function (cssWithMappingToString) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Book: () => (/* binding */ Book),
-/* harmony export */   addBooks: () => (/* binding */ addBooks),
-/* harmony export */   bookForm: () => (/* binding */ bookForm),
-/* harmony export */   removeBook: () => (/* binding */ removeBook),
-/* harmony export */   saveBooks: () => (/* binding */ saveBooks),
-/* harmony export */   showBooks: () => (/* binding */ showBooks)
+/* harmony export */   Task: () => (/* binding */ Task),
+/* harmony export */   addTasks: () => (/* binding */ addTasks),
+/* harmony export */   inputForm: () => (/* binding */ inputForm),
+/* harmony export */   removeTask: () => (/* binding */ removeTask),
+/* harmony export */   saveTasks: () => (/* binding */ saveTasks),
+/* harmony export */   showTasks: () => (/* binding */ showTasks),
+/* harmony export */   tasks: () => (/* binding */ tasks),
+/* harmony export */   tasksForm: () => (/* binding */ tasksForm),
+/* harmony export */   updateIndexes: () => (/* binding */ updateIndexes)
 /* harmony export */ });
 /* eslint-disable no-plusplus */
 // Retrieve books from local storage if available
 
-const books = JSON.parse(localStorage.getItem('books')) || [];
+const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 // Function to save books to local storage
-const saveBooks = () => {
-  localStorage.setItem('books', JSON.stringify(books));
+const saveTasks = () => {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 };
-
 // Defining a class for Book
-class Book {
-  constructor(title, author) {
-    this.title = title;
-    this.author = author;
+class Task {
+  constructor(description, completed, index) {
+    this.description = description;
+    this.completed = completed;
+    this.index = index;
   }
 
-  static addBook(title, author) {
-    const book = new Book(title, author);
-    books.push(book);
-
-    // Save the books to local storage
-    saveBooks();
+  static addTasks(description, completed, index) {
+    const task = new Task(description, completed, index);
+    tasks.push(task);
+    updateIndexes();
+    saveTasks();
   }
 
-  static removeBook(index) {
-    books.splice(index, 1);
-
+  static removeTask(index) {
+    if (index < 1 || index > tasks.length) {
+      console.log('Invalid index. Please provide a valid index.');
+      return;
+    }
+    tasks.splice(index - 1, 1);
     // Save the books to local storage
-    saveBooks();
+    updateIndexes();
+    saveTasks();
   }
 }
+const updateIndexes = () => {
+  tasks.forEach((task, index) => {
+    task.index = index + 1;
+  });
+};
 
-// Create a function to add books by user through form inputs
-const addBooks = (event) => {
-  // Prevents default form submission
+const tasksForm = document.createElement('form');
+tasksForm.setAttribute('id', 'form');
+
+const parent = document.body;
+parent.insertBefore(tasksForm, parent.children[0]);
+
+const inputForm = document.createElement('input');
+inputForm.setAttribute('id', 'input-form');
+inputForm.setAttribute('placeholder', 'Add to your list...');
+tasksForm.appendChild(inputForm);
+
+const formButton = document.createElement('button');
+formButton.setAttribute('type', 'submit');
+formButton.setAttribute('class', 'form-input-button');
+formButton.innerHTML = 'add task';
+tasksForm.appendChild(formButton);
+
+const hr1 = document.createElement('hr');
+tasksForm.appendChild(hr1);
+
+const addTasks = (event) => {
   event.preventDefault();
-
   // Getting the input values against variables
-  const titleInput = document.getElementById('title');
-  const title = titleInput.value;
+  const title = inputForm.value;
 
   // Add book using the Book class method
-  Book.addBook(title);
+  Task.addTasks(title);
 
   // Clearing the input values after the user clicks the add button
-  titleInput.value = '';
+  inputForm.value = '';
 
   // Update the books list
   // eslint-disable-next-line no-use-before-define
-  showBooks();
+  showTasks();
 };
 
-// Removing the book from the list when the remove button is clicked
-const removeBook = (index) => {
+const removeTask = (index) => {
   // Remove the book using the Book class method
-  Book.removeBook(index);
+  Task.removeTask(index);
 
   // Update the book list
   // eslint-disable-next-line no-use-before-define
-  showBooks();
+  showTasks();
 };
 
 // Function to display the books in the list
-const showBooks = () => {
-  const bookList = document.getElementById('added-books');
+const showTasks = () => {
+  const taskList = document.getElementById('todo-list');
 
   // Clear the existing list
-  bookList.innerHTML = '';
+  taskList.innerHTML = '';
 
   // Create a new list item for each book
-  for (let i = 0; i < books.length; i++) {
-    const book = books[i];
-    const booksDiv = document.createElement('div');
-    booksDiv.setAttribute('class', 'books-div');
+  for (let i = 0; i < tasks.length; i++) {
+    const task = tasks[i];
+    const tasksDiv = document.createElement('div');
+    tasksDiv.setAttribute('class', 'tasks-div');
 
-    if (i % 2 === 0) {
-      booksDiv.style.backgroundColor = '#fff';
-    } else {
-      booksDiv.style.backgroundColor = '#dddcdc';
-    }
     const inputCheckBox = document.createElement('input');
     inputCheckBox.setAttribute('type', 'checkbox');
 
@@ -17792,41 +17822,46 @@ const showBooks = () => {
       }
     });
 
-    booksDiv.appendChild(inputCheckBox);
+    tasksDiv.appendChild(inputCheckBox);
 
     const listItemTitle = document.createElement('p');
-    listItemTitle.innerHTML = `${book.title}`;
-    booksDiv.appendChild(listItemTitle);
+    listItemTitle.innerHTML = `${task.description}`;
+    tasksDiv.appendChild(listItemTitle);
 
     // Create a button to remove the book
     const removeButton = document.createElement('span');
     removeButton.setAttribute('class', 'close glyphicon');
+    removeButton.getAttribute('id', 'remove-icon');
     removeButton.innerHTML = '&#xe020;';
-    removeButton.addEventListener('click', function () {
-      removeBook(i);
-      showBooks(); // Update the book list after removal
-    });
-    booksDiv.appendChild(removeButton);
+    for (let i = 0; i < tasks.length; i++) {
+      // Create a button to remove the book
+      removeButton.addEventListener('click', () => {
+        removeTask(i);
+        showTasks(); // Update the book list after removal
+      });
+    }
+    tasksDiv.appendChild(removeButton);
 
     // Create the handle for dragging
     const handle = document.createElement('span');
     handle.setAttribute('class', 'handle');
     handle.innerHTML = '&#8942;';
-    booksDiv.appendChild(handle);
+    tasksDiv.appendChild(handle);
 
     // Add event listener to the list item for editing
-    listItemTitle.addEventListener('click', function () {
+    listItemTitle.addEventListener('click', () => {
       listItemTitle.contentEditable = true;
       listItemTitle.focus();
 
       // Show the remove button only during editing
-      removeButton.style.display = 'block';
+      removeButton.style.display = 'inline';
+      removeButton.style.margin = '0 15px 0 0';
       // Hide the handle during editing
       handle.style.display = 'none';
     });
 
     // Add event listener to handle changes in the edited list item
-    listItemTitle.addEventListener('blur', function () {
+    listItemTitle.addEventListener('blur', () => {
       listItemTitle.contentEditable = false;
 
       // Hide the remove button after editing is complete
@@ -17836,16 +17871,19 @@ const showBooks = () => {
       handle.style.display = 'inline';
 
       // Update the book title in the array
-      books[i].title = listItemTitle.innerHTML;
-      saveBooks(); // Save the updated book list to local storage
+      tasks[i].description = listItemTitle.innerHTML;
+      saveTasks(); // Save the updated book list to local storage
     });
 
     // Append the books, author, and remove button to the book list
-    bookList.appendChild(booksDiv);
+    taskList.appendChild(tasksDiv);
+    const hr3 = document.createElement('hr');
+    taskList.appendChild(hr3);
   }
 
   // Create "Clear All Completed" button
   const clearCompletedButton = document.createElement('button');
+  clearCompletedButton.setAttribute('class', 'clear-button');
   clearCompletedButton.textContent = 'Clear All Completed';
   clearCompletedButton.addEventListener('click', function () {
     const completedCheckboxes = Array.from(
@@ -17853,21 +17891,19 @@ const showBooks = () => {
     );
     completedCheckboxes.forEach((checkbox) => {
       const index = parseInt(checkbox.dataset.index);
-      removeBook(index);
-      showBooks(); // Update the book list after removal
+      removeTask(index);
+      showTasks(); // Update the book list after removal
     });
   });
 
   // Append "Clear All Completed" button to the book list
-  bookList.appendChild(clearCompletedButton);
+  taskList.appendChild(clearCompletedButton);
 };
 
 // Add event listener to the form submission
-const bookForm = document.getElementById('form');
-bookForm.addEventListener('submit', addBooks);
-bookForm.addEventListener('submit', showBooks);
-showBooks();
-// Add event listener to the form submission
+tasksForm.addEventListener('submit', addTasks);
+tasksForm.addEventListener('submit', showTasks);
+showTasks();
 
 
 /***/ })
