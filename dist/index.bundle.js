@@ -17707,6 +17707,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Task: () => (/* binding */ Task),
 /* harmony export */   addTasks: () => (/* binding */ addTasks),
+/* harmony export */   headerText: () => (/* binding */ headerText),
 /* harmony export */   inputForm: () => (/* binding */ inputForm),
 /* harmony export */   removeTask: () => (/* binding */ removeTask),
 /* harmony export */   saveTasks: () => (/* binding */ saveTasks),
@@ -17753,12 +17754,16 @@ const updateIndexes = () => {
     task.index = index + 1;
   });
 };
+const parent = document.body;
+
+const headerText = document.createElement('h3');
+headerText.innerHTML = `Today's To Do`;
+parent.insertBefore(headerText, parent.children[0]);
 
 const tasksForm = document.createElement('form');
 tasksForm.setAttribute('id', 'form');
 
-const parent = document.body;
-parent.insertBefore(tasksForm, parent.children[0]);
+parent.insertBefore(tasksForm, parent.children[1]);
 
 const inputForm = document.createElement('input');
 inputForm.setAttribute('id', 'input-form');

@@ -36,12 +36,16 @@ export const updateIndexes = () => {
     task.index = index + 1;
   });
 };
+const parent = document.body;
+
+export const headerText = document.createElement('h3');
+headerText.innerHTML = `Today's To Do`;
+parent.insertBefore(headerText, parent.children[0]);
 
 export const tasksForm = document.createElement('form');
 tasksForm.setAttribute('id', 'form');
 
-const parent = document.body;
-parent.insertBefore(tasksForm, parent.children[0]);
+parent.insertBefore(tasksForm, parent.children[1]);
 
 export const inputForm = document.createElement('input');
 inputForm.setAttribute('id', 'input-form');
