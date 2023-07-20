@@ -311,68 +311,45 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `body {
-  list-style: none;
-}
-
-.completed {
+___CSS_LOADER_EXPORT___.push([module.id, `.completed {
   text-decoration: line-through;
 }
 
-.books-div p {
-  margin: 0 0 0 20px;
+#input-form {
+  border: none;
+  width: 100vw;
+  height: 50px;
 }
 
-.close {
-  display: none;
-  font-size: 35px;
-  color: rgb(8, 7, 7);
-  margin: 0 200px 0 0;
-  cursor: pointer;
-}
-
-.sub-header {
+.tasks-div {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 20px 30px 5px 30px;
+  padding: 0 20px 0 20px;
 }
 
-.header input {
-  font-style: italic;
-  border: none;
-  margin: 0 30px 0 30px;
-  width: 90vw;
-}
-
-.sub-todo-list {
-  display: flex;
-  justify-content: left;
-  align-items: center;
+.close {
+  font-size: 20px;
+  display: none;
+  cursor: pointer;
 }
 
 .handle {
-  position: absolute;
-  right: 10px;
   font-size: 25px;
   color: rgb(138, 136, 136);
   margin: 0 20px 0 0;
   cursor: pointer;
 }
 
-.sub-todo-list input {
-  margin: 0 10px 0 30px;
+.form-input-button {
+  display: none;
 }
 
-.button-clear {
+.clear-button {
+  margin: 0;
   border: none;
-  text-align: center;
   width: 100vw;
   height: 60px;
-}
-
-.button-clear:hover {
-  background-color: silver;
 }
 `, ""]);
 // Exports
