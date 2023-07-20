@@ -1,5 +1,4 @@
-/* eslint-disable no-plusplus */
-// Retrieve books from local storage if available
+/* eslint-disable */ // Retrieve books from local storage if available
 
 export const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
@@ -24,7 +23,6 @@ export class Task {
 
   static removeTask(index) {
     if (index < 1 || index > tasks.length) {
-      console.log('Invalid index. Please provide a valid index.');
       return;
     }
     tasks.splice(index - 1, 1);

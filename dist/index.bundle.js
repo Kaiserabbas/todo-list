@@ -8,6 +8,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _print_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* eslint-disable */ /*importing files from the modules*/
+
 
 
 
@@ -17546,7 +17548,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.completed {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 #input-form {
@@ -17555,8 +17557,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.completed {
   height: 50px;
 }
 
-
-.tasks-div{
+.tasks-div {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17569,7 +17570,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.completed {
   cursor: pointer;
 }
 
-.glyphicon{
+.glyphicon {
   color: rgb(8, 7, 7);
 }
 
@@ -17580,15 +17581,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.completed {
   cursor: pointer;
 }
 
-.form-input-button{
+.form-input-button {
   display: none;
 }
+
 .clear-button {
   margin: 0;
   border: none;
   width: 100vw;
   height: 60px;
-}`, ""]);
+}
+`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -17712,8 +17715,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   tasksForm: () => (/* binding */ tasksForm),
 /* harmony export */   updateIndexes: () => (/* binding */ updateIndexes)
 /* harmony export */ });
-/* eslint-disable no-plusplus */
-// Retrieve books from local storage if available
+/* eslint-disable */ // Retrieve books from local storage if available
 
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
@@ -17738,7 +17740,6 @@ class Task {
 
   static removeTask(index) {
     if (index < 1 || index > tasks.length) {
-      console.log('Invalid index. Please provide a valid index.');
       return;
     }
     tasks.splice(index - 1, 1);

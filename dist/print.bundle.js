@@ -16,8 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   tasksForm: () => (/* binding */ tasksForm),
 /* harmony export */   updateIndexes: () => (/* binding */ updateIndexes)
 /* harmony export */ });
-/* eslint-disable no-plusplus */
-// Retrieve books from local storage if available
+/* eslint-disable */ // Retrieve books from local storage if available
 
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
@@ -42,7 +41,6 @@ class Task {
 
   static removeTask(index) {
     if (index < 1 || index > tasks.length) {
-      console.log('Invalid index. Please provide a valid index.');
       return;
     }
     tasks.splice(index - 1, 1);

@@ -312,7 +312,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.completed {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 #input-form {
@@ -321,8 +321,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.completed {
   height: 50px;
 }
 
-
-.tasks-div{
+.tasks-div {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -335,7 +334,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.completed {
   cursor: pointer;
 }
 
-.glyphicon{
+.glyphicon {
   color: rgb(8, 7, 7);
 }
 
@@ -346,15 +345,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.completed {
   cursor: pointer;
 }
 
-.form-input-button{
+.form-input-button {
   display: none;
 }
+
 .clear-button {
   margin: 0;
   border: none;
   width: 100vw;
   height: 60px;
-}`, ""]);
+}
+`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
