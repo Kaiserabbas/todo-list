@@ -613,6 +613,7 @@ const showTasks = () => {
       taskList.removeChild(tasksDiv);
       taskList.removeChild(hr3);
       removeTask(task.index);
+      saveTasks();
       showTasks();
     });
     removeButton.style.display = task.completed ? 'inline' : 'none';
@@ -649,15 +650,14 @@ const showTasks = () => {
   const clearCompletedButton = document.createElement('button');
   clearCompletedButton.setAttribute('class', 'clear-button');
   clearCompletedButton.textContent = 'Clear All Completed';
-  clearCompletedButton.addEventListener('click', function () {
-    const completedCheckboxes = Array.from(
-      document.querySelectorAll('input[type="checkbox"]:checked')
-    );
-
-    completedCheckboxes.forEach((checkbox) => {
-      const index = parseInt(checkbox.dataset.index);
-      removeTask(index);
+  clearCompletedButton.addEventListener('click', () => {
+    const filteredTasks = tasks.filter((task) => {
+      return !task.completed;
     });
+
+    tasks = filteredTasks;
+    saveTasks();
+    showTasks();
   });
   taskList.appendChild(clearCompletedButton);
 };

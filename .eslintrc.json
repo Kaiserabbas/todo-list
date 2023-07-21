@@ -23,6 +23,8 @@
     "no-param-reassign": "off",
     "eol-last": "off",
      "radix": "off",
+    "no-const-assign": "off",
+    "arrow-body-style": "off",
      "comma-dangle": ["off", "always-multiline"],
     "import/extensions": [ 1, {
       "js": "always", "json": "always"
