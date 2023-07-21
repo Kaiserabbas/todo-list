@@ -12,19 +12,18 @@
   },
   "extends": ["airbnb-base"],
   "rules": {
+    "no-use-before-define": "off",
     "prefer-destructuring": ["error", {"object": true, "array": false}],
     "func-names": ["error", "never", { "generators": "always" }],
      "prefer-arrow-callback": "off",
-     "no-use-before-define": [
-    "error",
-    {
-      "functions": false
-    }
-  ],
     "arrow-parens": "off",
+    "no-unused-vars": "off",
     "no-shadow": "off",
+    "no-plusplus": "off", 
     "no-param-reassign": "off",
     "eol-last": "off",
+     "radix": "off",
+     "comma-dangle": ["off", "always-multiline"],
     "import/extensions": [ 1, {
       "js": "always", "json": "always"
     }]
