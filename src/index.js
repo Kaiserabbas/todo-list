@@ -1,7 +1,12 @@
-/* eslint-disable */ /*importing files from the modules*/
-import _ from 'lodash';
-import './index.css';
-import { saveTasks, addTasks, showTasks, tasksForm } from './print.js';
+/* importing files from the modules */
+import './modules/index.css';
+import {
+  saveTasks,
+  addTasks,
+  showTasks,
+  tasksForm,
+  tasks,
+} from './modules/print.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   saveTasks();
