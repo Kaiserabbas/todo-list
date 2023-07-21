@@ -4,8 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: {
     index: './src/index.js',
-    print: './src/print.js',
-    style: './src/index.css',
+    print: './src/modules/print.js',
+    style: './src/modules/index.css',
   },
   mode: 'none',
   devServer: {

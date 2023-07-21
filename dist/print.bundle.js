@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunktodo_list"] = self["webpackChunktodo_list"] || []).push([[1],{
 
-/***/ 12:
+/***/ 11:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -17,7 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   tasksForm: () => (/* binding */ tasksForm),
 /* harmony export */   updateIndexes: () => (/* binding */ updateIndexes)
 /* harmony export */ });
-/* eslint-disable */ // Retrieve books from local storage if available
+// Retrieve books from local storage if available
 
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
@@ -41,9 +41,9 @@ class Task {
   }
 
   static removeTask(index) {
-    if (index < 1 || index > tasks.length) {
-      return;
-    }
+    // if (index < 1 || index > tasks.length) {
+    //   return;
+    // }
     tasks.splice(index - 1, 1);
     // Save the books to local storage
     updateIndexes();
@@ -58,7 +58,7 @@ const updateIndexes = () => {
 const parent = document.body;
 
 const headerText = document.createElement('h3');
-headerText.innerHTML = `Today's To Do`;
+headerText.innerHTML = "Today's To Do";
 parent.insertBefore(headerText, parent.children[0]);
 
 const tasksForm = document.createElement('form');
@@ -86,7 +86,7 @@ const addTasks = (event) => {
   const title = inputForm.value;
 
   // Add book using the Book class method
-  Task.addTasks(title);
+  Task.addTasks(title, false); // Updated to pass 'false' for the 'completed' parameter
 
   // Clearing the input values after the user clicks the add button
   inputForm.value = '';
@@ -97,22 +97,15 @@ const addTasks = (event) => {
 };
 
 const removeTask = (index) => {
-  // Remove the book using the Book class method
   Task.removeTask(index);
-
-  // Update the book list
-  // eslint-disable-next-line no-use-before-define
   showTasks();
 };
 
 // Function to display the books in the list
 const showTasks = () => {
   const taskList = document.getElementById('todo-list');
-
-  // Clear the existing list
   taskList.innerHTML = '';
 
-  // Create a new list item for each book
   for (let i = 0; i < tasks.length; i++) {
     const task = tasks[i];
     const tasksDiv = document.createElement('div');
@@ -120,12 +113,17 @@ const showTasks = () => {
 
     const inputCheckBox = document.createElement('input');
     inputCheckBox.setAttribute('type', 'checkbox');
+    inputCheckBox.setAttribute('data-index', task.index); // Use task.index instead of i
+    inputCheckBox.classList.add('checkbox'); // Add a class for styling
+    inputCheckBox.id = 'checkbox';
+
+    if (task.completed) {
+      inputCheckBox.checked = true;
+    }
     inputCheckBox.addEventListener('change', () => {
-      if (inputCheckBox.checked) {
-        listItemTitle.style.textDecoration = 'line-through';
-      } else {
-        listItemTitle.style.textDecoration = 'none';
-      }
+      task.completed = inputCheckBox.checked;
+      saveTasks();
+      showTasks();
     });
 
     tasksDiv.appendChild(inputCheckBox);
@@ -134,71 +132,60 @@ const showTasks = () => {
     listItemTitle.innerHTML = `${task.description}`;
     tasksDiv.appendChild(listItemTitle);
 
-    // Create a button to remove the book
     const removeButton = document.createElement('span');
     removeButton.setAttribute('class', 'close');
-    removeButton.getAttribute('id', 'remove-icon');
+    removeButton.setAttribute('id', 'remove-icon');
     removeButton.innerHTML = '🗑';
-    removeButton.addEventListener('click', (event) => {
-      const removeButtonParent = event.target.parentNode;
-      taskList.removeChild(removeButtonParent);
+    removeButton.addEventListener('click', () => {
+      taskList.removeChild(tasksDiv);
       taskList.removeChild(hr3);
+      removeTask(task.index);
+      saveTasks();
+      showTasks();
     });
-
+    removeButton.style.display = task.completed ? 'inline' : 'none';
     tasksDiv.appendChild(removeButton);
-    inputCheckBox.addEventListener('change', (event) => {
-      handle.style.display = 'none';
-      const listItem = event.target.parentNode;
-      const removeButton = listItem.querySelector('.close');
-      removeButton.style.margin = '0 15px 0 0';
-      handle.style.display = event.target.checked ? 'none' : 'inline';
-      removeButton.style.display = event.target.checked ? 'inline' : 'none';
-    });
 
-    // Create the handle for dragging
     const handle = document.createElement('span');
     handle.setAttribute('class', 'handle');
     handle.innerHTML = '&#8942;';
     tasksDiv.appendChild(handle);
+    handle.style.display = task.completed ? 'none' : 'inline';
 
-    // Add event listener to the list item for editing
     listItemTitle.addEventListener('click', () => {
       listItemTitle.contentEditable = true;
       listItemTitle.focus();
     });
 
-    // Add event listener to handle changes in the edited list item
     listItemTitle.addEventListener('blur', () => {
       listItemTitle.contentEditable = false;
-      // Update the book title in the array
       tasks[i].description = listItemTitle.innerHTML;
-      saveTasks(); // Save the updated book list to local storage
+      saveTasks();
     });
 
-    // Append the books, author, and remove button to the book list
     taskList.appendChild(tasksDiv);
     const hr3 = document.createElement('hr');
     taskList.appendChild(hr3);
-  }
 
-  // Create "Clear All Completed" button
+    // Update the text decoration style based on the checkbox state
+    if (inputCheckBox.checked) {
+      listItemTitle.style.textDecoration = 'line-through';
+    } else {
+      listItemTitle.style.textDecoration = 'none';
+    }
+  }
   const clearCompletedButton = document.createElement('button');
   clearCompletedButton.setAttribute('class', 'clear-button');
   clearCompletedButton.textContent = 'Clear All Completed';
-  clearCompletedButton.addEventListener('click', function () {
-    const completedCheckboxes = Array.from(
-      document.querySelectorAll('input[type="checkbox"]:checked')
-    );
-
-    completedCheckboxes.forEach((checkbox) => {
-      const index = parseInt(checkbox.dataset.index);
-
-      removeTask(index);
-      showTasks(); // Update the book list after removal
+  clearCompletedButton.addEventListener('click', () => {
+    const filteredTasks = tasks.filter((task) => {
+      return !task.completed;
     });
-  });
 
-  // Append "Clear All Completed" button to the book list
+    tasks = filteredTasks;
+    saveTasks();
+    showTasks();
+  });
   taskList.appendChild(clearCompletedButton);
 };
 
@@ -213,6 +200,6 @@ showTasks();
 },
 /******/ __webpack_require__ => { // webpackRuntimeModules
 /******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ var __webpack_exports__ = (__webpack_exec__(12));
+/******/ var __webpack_exports__ = (__webpack_exec__(11));
 /******/ }
 ]);
